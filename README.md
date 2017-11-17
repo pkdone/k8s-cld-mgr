@@ -100,7 +100,7 @@ TODO: Say can also drive this via API LINK instead, but for this demo use UI for
 
 1. Log-on to your Cloud Manager LINK account and check that the 3 Kubernetes provisioned agents are appearing at 3 Servers listed in the Deployments section (similar to the screenshot below).
 
-![Deployments](readme_images/1.png | width=100)
+![Deployments](readme_images/1.png)
 
 2. In the same Servers view of Cloud Manager, for each of the 3 Servers choose to install both: 1) Monitoring Agent, 2) Backup Agent (see screenshot below), ensuring you proceed with "Review & Deploy".
 
