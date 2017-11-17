@@ -122,7 +122,7 @@ TODO: Say can also drive this via API LINK instead, but for this demo use UI for
 
 6. Now you can enable backups for the running MongoDB Replica Set. Select the "Backups" section from the left side of Cloud Manager's UI and for the listed newly deployed replica set, press the "Start" button (see screenshot below).
 
-![Backups](readme_images/7.png)
+![Backups](readme_images/8.png)
 
 7. [OPTIONAL] To test that Cloud Manager's rolling update automation feature works correctly for the deployed replica set running on Kubernetes containers, back in the "Deployments - Processes" part of the Cloud Manager UI, for the deployed replica set, press the "Modify" button and make a configuration change that would result in the need for a rolling update (eg. change the version number to a lower version, such as 3.4.10 -> 3.4.9) select to "Apply" and then proceed with "Review & Deploy". Half a minute or so later, the change (eg. the downgrade") will have completed and the replica set will be displayed in its new state in the Cloud Manager UI. 
 
