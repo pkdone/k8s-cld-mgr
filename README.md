@@ -43,7 +43,7 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
 
  **Note:** Above, replace 'XXXX' with your Docker Hub username (e.g. 'jbloggs').
 
-2. **OPTIONAL:** Quickly test that the Docker image runs locally and can be connected to, with the main Cloud Manager Automation process listed as running:
+2. **OPTIONAL:** Quickly test that the Docker image runs locally and can be connected to, with the main Automation Agent's OS process shown as running:
 
     ```
     $ docker images

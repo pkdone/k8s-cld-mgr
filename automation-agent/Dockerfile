@@ -37,6 +37,7 @@ EXPOSE 27000-28000
 
 # Wrapper script to start the main command in the background
 COPY start.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/start.sh
 ENTRYPOINT ["start.sh"]
 
 # Default to just showing agent help output (see below for proper container start-up command example)
