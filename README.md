@@ -75,9 +75,9 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
 
 
     ```
-    * XXXX: Your Docker Hub username (e.g. 'jbloggs')
-    * YYYY: Your Cloud Manager GroupID (a.k.a. ProjectID)
-    * ZZZZ: Your Cloud Manager API key
+    XXXX: Your Docker Hub username (e.g. 'jbloggs')
+    YYYY: Your Cloud Manager GroupID (a.k.a. ProjectID)
+    ZZZZ: Your Cloud Manager API key
     ```
 
 2. To create a Kubernetes cluster, create the required disk storage (and associated PersistentVolumes), and deploy the Cloud Manager Automation Agent Service (which includes the StatefulSet "agent" containers), via a command-line terminal/shell run the following (ensure the script files are set to be executable):
