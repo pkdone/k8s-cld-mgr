@@ -63,7 +63,7 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
     ```
     $ sudo docker login
     $ sudo docker push XXXX/automation-agent
-    ```
+    ``` 
 
  **Note:** Above, replace 'XXXX' with your Docker Hub username (e.g. 'jbloggs').
 
