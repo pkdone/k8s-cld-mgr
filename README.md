@@ -38,7 +38,7 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
 
     ```
     $ cd automation-agent
-    $ docker build -t XXXX/automation-agent.sh
+    $ docker build -t XXXX/automation-agent .
     ```
 
  **Note:** Above, replace 'XXXX' with your Docker Hub username (e.g. 'jbloggs').
