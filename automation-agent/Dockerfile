@@ -2,8 +2,8 @@ FROM ubuntu:16.04
 
 # For agent dependencies see: https://docs.mongodb.com/manual/tutorial/install-mongodb-enterprise-on-linux/
 RUN set -x \
-	&& apt-get update -y \
-	&& apt-get install -y \
+    && apt-get update -y \
+    && apt-get install -y \
         curl \
         libcurl3 \
         libgssapi-krb5-2 \
