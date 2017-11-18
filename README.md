@@ -82,8 +82,9 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
 
 2. To create a Kubernetes cluster, create the required disk storage (and associated PersistentVolumes), and deploy the Cloud Manager Automation Agent Service (which includes the StatefulSet "agent" containers), via a command-line terminal/shell run the following (ensure the script files are set to be executable):
 
+
     ```
-    $ ./initialise_k8s.sh
+    $ ./initialise_k8s.sh
     $ ./deploy_statefulset.sh
     ```
 
