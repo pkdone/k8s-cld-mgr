@@ -4,7 +4,7 @@ FROM ubuntu:16.04
 RUN set -x \
 	&& apt-get update -y \
 	&& apt-get install -y \
-		curl \
+        curl \
         libcurl3 \
         libgssapi-krb5-2 \
         libkrb5-dbg \
@@ -16,7 +16,7 @@ RUN set -x \
         libsnmp30 \
         libssl1.0.0 \
         libwrap0 \
-		numactl \
+        numactl \
         psmisc \
     && curl -OL https://cloud.mongodb.com/download/agent/automation/mongodb-mms-automation-agent-manager_latest_amd64.ubuntu1604.deb \
     && dpkg -i mongodb-mms-automation-agent-manager_latest_amd64.ubuntu1604.deb \
@@ -24,7 +24,7 @@ RUN set -x \
     && apt-get autoremove \
     && apt-get autoclean \
     && apt-get clean \
-	&& rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
 # Two main volumes to mount: 
 #  1) Place for all mongodb cluster configuration & data files
