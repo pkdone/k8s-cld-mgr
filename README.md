@@ -1,8 +1,8 @@
 # MongoDB Cloud Manager with Kubernetes Demonstration
 
-An example project demonstrating the use of MongoDB [Cloud Manager](https://www.mongodb.com/cloud/cloud-manager) with [Kubernetes](https://kubernetes.io/) to deploy a [MongoDB Replica Set](https://docs.mongodb.com/manual/core/replica-set-members/). Uses the approach of deploying MongoDB Cloud Manager [Automation Agents](https://docs.cloudmanager.mongodb.com/tutorial/nav/automation-agent/) as "skeleton" [Docker containers](https://www.docker.com/what-container), provisioned as a Kubernetes [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/). This enables the Cloud Manager UI (or API) to subsequently be used to deploy the MongoDB Replica Set's individual "mongod" processes, to the "skeleton" containers. This example project is specific to the [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) (GKE). However, most of the outlined approach can be adopted for any other Kubernetes host environment. Likewise, the example project uses MongoDB Cloud Manager, but most of the principles applied can be transferred to the use of MongoDB [Ops Manager](https://docs.opsmanager.mongodb.com/current/application/), instead (i.e. to the on-prem version of Cloud Manager).
+An example project demonstrating the use of MongoDB [Cloud Manager](https://www.mongodb.com/cloud/cloud-manager) with [Kubernetes](https://kubernetes.io/) to deploy a [MongoDB Replica Set](https://docs.mongodb.com/manual/core/replica-set-members/). Uses the approach of deploying MongoDB Cloud Manager [Automation Agents](https://docs.cloudmanager.mongodb.com/tutorial/nav/automation-agent/) as "skeleton" [Docker containers](https://www.docker.com/what-container), provisioned as a Kubernetes [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/). This enables the Cloud Manager UI (or API) to subsequently be used to deploy the MongoDB Replica Set's individual "mongod" processes, to the "skeleton" containers. This example project is specific to the [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/) (GKE), however, most of the outlined approach can be adopted for any other Kubernetes host environment. Likewise, the example project uses MongoDB Cloud Manager, but most of the principles applied can be transferred to the use of MongoDB [Ops Manager](https://docs.opsmanager.mongodb.com/current/application/), instead (i.e. to the on-prem version of Cloud Manager).
 
-The project contains a [Dockerfile](https://docs.docker.com/engine/reference/builder/) and supporting container "entrypoint" Bash script to generate a [Docker container image](https://docs.docker.com/engine/userguide/eng-image/baseimages/), containing a MongoDB Cloud Manager Automation Agent (in the 'automation-agent' folder of this project). The project also contains example Kubernetes YAML resource files (in the 'resource' folder) and associated Kubernetes based Bash scripts (in the 'scripts' folder), to deploy the Cloud Manager Automation Agents to the Kubernetes environment.
+The project contains a [Dockerfile](https://docs.docker.com/engine/reference/builder/) and a supporting container entrypoint "wrapper" Bash script to generate a [Docker container image](https://docs.docker.com/engine/userguide/eng-image/baseimages/), containing a MongoDB Cloud Manager Automation Agent (in the 'automation-agent' folder of this project). The project also contains example Kubernetes YAML resource files (in the 'resource' folder) and associated Kubernetes based Bash scripts (in the 'scripts' folder), to deploy the Cloud Manager Automation Agents to the Kubernetes environment.
 
 For further background information about running MongoDB with Kubernetes, see: [http://k8smongodb.net/](http://k8smongodb.net/)
 
@@ -18,7 +18,7 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
 2. An account has been registered with [Docker Hub](https://hub.docker.com/) (free to sign up). 
 3. An account has been registered with MongoDB's Cloud Manager service. You can sign up to a [free trial](https://cloud.mongodb.com/user#/register/accountProfile) for Cloud Manager. One registered, an [Agent API Key](https://docs.cloudmanager.mongodb.com/tutorial/manage-agent-api-key/) needs to be created in the Cloud Manager UI's "Deployments | Agents | Agent API Keys" section. 
 4. GCP’s client command line tool [gcloud](https://cloud.google.com/sdk/docs/quickstarts) has been installed. 
-5. Your local workstation has (Docker installed)[https://docs.docker.com/engine/installation/] (Community Edition) and running (either natively or in a VM). 
+5. Your local workstation has [Docker installed](https://docs.docker.com/engine/installation/) (Community Edition) and running (either natively or in a VM). 
 6. Your local workstation has been initialised to: (1) use your GCP account, (2) install the Kubernetes command tool (“kubectl”), (3) configure authentication credentials, and (4) set the default GCP zone to be deployed to:
 
     ```
@@ -41,7 +41,7 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
     $ docker build -t XXXX/automation-agent.sh
     ```
 
- **Note:** Replace 'XXXX' with your Docker Hub username (e.g. 'jbloggs').
+ **Note:** Above, replace 'XXXX' with your Docker Hub username (e.g. 'jbloggs').
 
 2. **OPTIONAL:** Quickly test that the Docker image runs locally and can be connected to, with the main Cloud Manager Automation process listed as running:
 
@@ -56,7 +56,7 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
     $ docker logs automation-agent-container
     ```
 
- **Note:** Replace 'XXXX', 'YYYY' & 'ZZZZ' with your Docker Hub username (e.g. 'jbloggs'), your Cloud Manager GroupID (a.k.a. ProjectID, see "Settings | Project Settings" part of the Cloud Manager UI) and your Cloud Manager API key (you created in the 1.1 Prerequisites section above), respectively.
+ **Note:** Above, replace 'XXXX', 'YYYY' & 'ZZZZ' with your Docker Hub username (e.g. 'jbloggs'), your Cloud Manager GroupID (a.k.a. ProjectID, see "Settings | Project Settings" part of the Cloud Manager UI) and your Cloud Manager API key (you created in the 1.1 Prerequisites section above), respectively.
 
 3. Publish the Docker image for the Cloud Manager Automation Agent, to Docker Hub
 
@@ -65,7 +65,7 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
     $ sudo docker push XXXX/automation-agent
     ```
 
- **Note:** Replace 'XXXX' with your Docker Hub username (e.g. 'jbloggs').
+ **Note:** Above, replace 'XXXX' with your Docker Hub username (e.g. 'jbloggs').
 
 
 
