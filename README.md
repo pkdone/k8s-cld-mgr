@@ -85,7 +85,7 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
 
     ```
     $ ./initialise_k8s.sh
-    $ ./deploy_statefulset.sh
+    $ ./initialise_k8s.sh
     ```
 
 3. Once all the StatefulSet's 3 Cloud Manager Automation Agents are successfully running, run the following command to list the 3 pods for the 3 agents:
