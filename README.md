@@ -7,6 +7,7 @@ The project contains a [Dockerfile](https://docs.docker.com/engine/reference/bui
 For further background information about running MongoDB with Kubernetes, see: [http://k8smongodb.net/](http://k8smongodb.net/)
 
 
+
 ## 1 How To Run
 
 ### 1.1 Prerequisites
@@ -27,7 +28,9 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
     $ gcloud config set compute/zone europe-west1-b
     ```
 
-**Note:** To specify an alternative zone to deploy to, in the above command, you can first view the list of available zones by running the command: `$ gcloud compute zones list`
+ **Note:** To specify an alternative zone to deploy to, in the above command, you can first view the list of available zones by running the command: `$ gcloud compute zones list`
+
+
 
 ### 1.2 Generate & Publish The Docker Image For The Cloud Manager Automation Agent
 
@@ -38,9 +41,9 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
     $ docker build -t XXXX/automation-agent.sh
     ```
 
-**Note:** Replace 'XXXX' with your Docker Hub username (e.g. 'jbloggs').
+ **Note:** Replace 'XXXX' with your Docker Hub username (e.g. 'jbloggs').
 
-2. [OPTIONAL] Quickly test that the Docker image runs locally and can be connected to, with the main Cloud Manager Automation process listed as running:
+2. **OPTIONAL:** Quickly test that the Docker image runs locally and can be connected to, with the main Cloud Manager Automation process listed as running:
 
     ```
     $ docker images
@@ -50,26 +53,32 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
     $ ps -ef
     $ exit
     $ docker stop automation-agent-container
+    $ docker logs automation-agent-container
     ```
 
-**Note:** Replace 'XXXX', 'YYYY' & 'ZZZZ' with your Docker Hub username (e.g. 'jbloggs'), your Cloud Manager GroupID (a.k.a. ProjectID, see "Settings | Project Settings" part of the Cloud Manager UI) and your Cloud Manager API key (you created in the 1.1 Prerequisites section above), respectively.
+ **Note:** Replace 'XXXX', 'YYYY' & 'ZZZZ' with your Docker Hub username (e.g. 'jbloggs'), your Cloud Manager GroupID (a.k.a. ProjectID, see "Settings | Project Settings" part of the Cloud Manager UI) and your Cloud Manager API key (you created in the 1.1 Prerequisites section above), respectively.
 
-2. Publish the Docker image for the Cloud Manager Automation Agent to Docker Hub
+3. Publish the Docker image for the Cloud Manager Automation Agent, to Docker Hub
 
     ```
     $ sudo docker login
     $ sudo docker push XXXX/automation-agent
     ```
 
-**Note:** Replace 'XXXX' with your Docker Hub username (e.g. 'jbloggs').
+ **Note:** Replace 'XXXX' with your Docker Hub username (e.g. 'jbloggs').
+
+
 
 ### 1.3 Deploy the Cloud Manager StatefulSet to Kubernetes
 
-1. In the YAML resource file that define's the Kubernetes StatefulSet ('resources/mongodb-agent-service.yaml') replace the following text with the corresponding values for your environment and save the changes:
+1. In the YAML resource file that define's the Kubernetes StatefulSet ('resources/mongodb-agent-service.yaml') replace the following text elements with the corresponding values for your environment and save the changes:
 
- * XXXX: Your Docker Hub username (e.g. 'jbloggs')
- * YYYY: Your Cloud Manager GroupID (a.k.a. ProjectID)
- * ZZZZ: Your Cloud Manager API key
+
+    ```
+    * XXXX: Your Docker Hub username (e.g. 'jbloggs')
+    * YYYY: Your Cloud Manager GroupID (a.k.a. ProjectID)
+    * ZZZZ: Your Cloud Manager API key
+    ```
 
 2. To create a Kubernetes cluster, create the required disk storage (and associated PersistentVolumes), and deploy the Cloud Manager Automation Agent Service (which includes the StatefulSet "agent" containers), via a command-line terminal/shell run the following (ensure the script files are set to be executable):
 
@@ -80,11 +89,13 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
 
 3. Once all the StatefulSet's 3 Cloud Manager Automation Agents are successfully running, run the following command to list the 3 pods for the 3 agents:
 
+    ```
     $ kubectl get pods
+    ```
 
-You can also view the the state of the deployed environment via the [Google Cloud Platform Console](https://console.cloud.google.com) (look at both the “Kubernetes Engine” and the “Compute Engine” sections of the Console).
+ You can also view the the state of the deployed environment via the [Google Cloud Platform Console](https://console.cloud.google.com) (look at both the “Kubernetes Engine” and the “Compute Engine” sections of the Console).
 
-4. [OPTIONAL] Check one of the three running Cloud Manager Automation Agent Pods (Containers) to see if it is running correctly:
+4. **OPTIONAL:** Check one of the three running Cloud Manager Automation Agent Pods (Containers) to see if it is running correctly:
 
     ```
     $ kubectl logs mytestapp-mongodb-agent-0
@@ -92,6 +103,7 @@ You can also view the the state of the deployed environment via the [Google Clou
     $ ps -ef
     $ exit
     ```
+
 
 
 ### 1.4 Configure The Cloud Manger Project & Deploy The MongoDB Replica-Set
@@ -124,13 +136,14 @@ In this section you will use the Cloud Manager UI to check that the 3 Cloud Mana
 
 ![Backups](readme_images/8.png)
 
-7. [OPTIONAL] To test that Cloud Manager's rolling update automation feature works correctly for the deployed replica set running on Kubernetes containers, back in the "Deployments - Processes" part of the Cloud Manager UI, for the deployed replica set, press the "Modify" button. Now make a configuration change that will result in the need for a rolling update to be performed (eg. change the version number to a lower version, e.g. 3.4.10 -> 3.4.9) select to "Apply" and then proceed with "Review & Deploy". Half a minute or so later, the change (eg. the "downgrade") will have completed and the replica set will be displayed in its new state, in the Cloud Manager UI. 
+7. **OPTIONAL:** To test that Cloud Manager's rolling update automation feature works correctly for the deployed replica set running on Kubernetes containers, back in the "Deployments - Processes" part of the Cloud Manager UI, for the deployed replica set, press the "Modify" button. Now make a configuration change that will result in the need for a rolling update to be performed (eg. change the version number to a lower version, e.g. 3.4.10 -> 3.4.9) select to "Apply" and then proceed with "Review & Deploy". Half a minute or so later, the change (eg. the "downgrade") will have completed and the replica set will be displayed in its new state, in the Cloud Manager UI. 
 
-8. [OPTIONAL] From the command line, view the automation agent's logs for the first Kubernetes provisioned container to see a verbose logs of all the tasks that the agent has performed to fulfil the all of the Cloud Manager initiated actions:
+8. **OPTIONAL:** From the command line, view the automation agent's logs for the first Kubernetes provisioned container to see a verbose logs of all the tasks that the agent has performed to fulfil the all of the Cloud Manager initiated actions:
 
     ```
     $ kubectl logs mytestapp-mongodb-agent-0
     ```
+
 
 
 ### 1.5 Undeploying & Cleaning Down the Cloud Manager & Kubernetes Environment
@@ -141,8 +154,10 @@ In this section you will use the Cloud Manager UI to check that the 3 Cloud Mana
 
 2. Run the following script to undeploy the Cloud Manager Automation Agent Service & StatefulSet plus related Kubernetes resources, followed by the removal of the GCE disks, before the GKE Kubernetes cluster is finally deleted.
 
+    ```
     $ ./undeploy_statefulset.sh
     $ ./teardown_k8s.sh
+    ```
     
 It is also worth checking in the [Google Cloud Platform Console](https://console.cloud.google.com), to ensure all resources have been removed correctly.
 
@@ -161,6 +176,7 @@ It is also worth checking in the [Google Cloud Platform Console](https://console
 * Correctly configuring Mongod WiredTiger Cache Size in containers
 * Controlling Anti-Affinity for Automation Agents hosting a particular set of Mongod replicas, to avoid a Single Point of Failure
 * Allow automated upgrades of Automation Agents without causing host containers to die (due to use of entrypoint "wrapper" Bash script)
+
 
 
 ## 3 Discussions Points / Subjects to Highlight
