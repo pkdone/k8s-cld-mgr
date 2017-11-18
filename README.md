@@ -84,6 +84,7 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
 
 
     ```
+    $ cd ../scripts
     $ ./initialise_k8s.sh
     $ ./deploy_statefulset.sh
     ```
