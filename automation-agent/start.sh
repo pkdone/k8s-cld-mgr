@@ -7,8 +7,8 @@ LOGFILE="/var/lib/mongodb-mms-automation/docker-started-automation-agent.log"
 # Tells any mongod/mongos to gracefully shutdown before gracefully shutting
 # down the automation agent, then shutting down the main 'tail' process
 # (OR'd with 'true' to prevent 'no matching processes' from throwing error).
-# Finally as any MongoDB processes have now terminated (due to use of wait),
-# try to kill main Docker process.
+# Finally because any MongoDB processes have now terminated (due to use of 
+# wait '-w'), try to kill main Docker process.
 sigterm_handler() {
   echo "AGENT-WRAPPER: Starting hanging up mongos/mongod/agent processes"
   killall -w -SIGTERM mongos || true
@@ -24,14 +24,15 @@ sigterm_handler() {
 echo "AGENT-WRAPPER: Registering SIGTERM handler"
 trap 'kill ${!}; sigterm_handler' SIGTERM
 
-# All args passed to this script form the command ($@) to be run in background
+# All args from (CMD) passed to this script will form the command ($@) to be
+# run in background
 echo "AGENT-WRAPPER: Invoking agent in background with command: $@"
 echo
 nohup "$@" > $LOGFILE 2>&1 &
-echo "AGENT-WRAPPER: Continuously tailing output log of background agent '${LOGFILE}' ....."
-echo
 
 # Tail the agent log file indefinitely (run in background so can catch signal)
+echo "AGENT-WRAPPER: Continuously tailing output log of background agent '${LOGFILE}' ....."
+echo
 tail -F $LOGFILE & wait ${!}
 echo
 echo "AGENT-WRAPPER: Terminated"

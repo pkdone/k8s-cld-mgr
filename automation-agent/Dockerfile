@@ -1,6 +1,7 @@
 FROM ubuntu:16.04
 
-# For agent dependencies see: https://docs.mongodb.com/manual/tutorial/install-mongodb-enterprise-on-linux/
+# Install all agent & mongod dependencies, plus: curl, numactl & psmisc
+# For mongod dependencies see: https://docs.mongodb.com/manual/tutorial/install-mongodb-enterprise-on-linux/
 RUN set -x \
     && apt-get update -y \
     && apt-get install -y \
@@ -26,7 +27,7 @@ RUN set -x \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Two main volumes to mount: 
+# Two main volumes to be mount to external volumes: 
 #  1) Place for all mongodb cluster configuration & data files
 #  2) Place for agent & db binary downloads, for quicker mongod re-start whenever containers are recycled
 VOLUME /data /var/lib/mongodb-mms-automation
@@ -35,7 +36,7 @@ RUN chown mongodb:mongodb /data /var/lib/mongodb-mms-automation
 # Range of potential ports for Cloud Manager configured mongod's to listen on
 EXPOSE 27000-28000
 
-# Wrapper script to start the main command in the background
+# Wrapper script to start the main command (CMD) in the background and register a SIGTERM handler
 COPY start.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/start.sh
 ENTRYPOINT ["start.sh"]
