@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-# Install all agent & mongod dependencies, plus: curl, numactl & psmisc
+# Install the agent, the mongod dependencies, plus: curl, numactl & psmisc
 # For mongod dependencies see: https://docs.mongodb.com/manual/tutorial/install-mongodb-enterprise-on-linux/
 RUN set -x \
     && apt-get update -y \
