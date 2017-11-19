@@ -58,7 +58,7 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
 
  **Note:** Above, replace 'XXXX', 'YYYY' & 'ZZZZ' with your Docker Hub username (e.g. 'jbloggs'), your Cloud Manager GroupID (a.k.a. ProjectID, see "Settings | Project Settings" part of the Cloud Manager UI) and your Cloud Manager API key (which you created in the 1.1 Prerequisites section above), respectively.
 
-3. Publish the Docker image for the Cloud Manager Automation Agent, to Docker Hub
+3. Publish the generated Docker image for the Cloud Manager Automation Agent, to Docker Hub
 
     ```
     $ sudo docker login
