@@ -27,7 +27,7 @@ RUN set -x \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Two main volumes to be mount to external volumes: 
+# Two main volumes to be mounted to, to external volumes: 
 #  1) Place for all mongodb cluster configuration & data files
 #  2) Place for agent & db binary downloads, for quicker mongod re-start whenever containers are recycled
 VOLUME /data /var/lib/mongodb-mms-automation

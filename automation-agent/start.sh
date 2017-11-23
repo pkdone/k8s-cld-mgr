@@ -24,8 +24,8 @@ sigterm_handler() {
 echo "AGENT-WRAPPER: Registering SIGTERM handler"
 trap 'kill ${!}; sigterm_handler' SIGTERM
 
-# All args from (CMD) passed to this script will form the command ($@) to be
-# run in background
+# All args from the Docker CMD, passed to this script, will form the command
+# ($@) to be run in the background
 echo "AGENT-WRAPPER: Invoking agent in background with command: $@"
 echo
 nohup "$@" > $LOGFILE 2>&1 &

@@ -95,7 +95,7 @@ Ensure the following dependencies are already fulfilled on your host Linux/Windo
     $ kubectl get pods
     ```
 
- You can also view the the state of the deployed environment via the [Google Cloud Platform Console](https://console.cloud.google.com) (look at both the “Kubernetes Engine” and the “Compute Engine” sections of the Console).
+ You can also view the state of the deployed environment via the [Google Cloud Platform Console](https://console.cloud.google.com) (look at both the “Kubernetes Engine” and the “Compute Engine” sections of the Console).
 
 4. **OPTIONAL:** Check the first of the three running Cloud Manager Automation Agent pods (containers) to see if it is running correctly:
 
